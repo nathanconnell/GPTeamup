@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>GPTeamup — Spindle Study</title>
+<style>
+:root{color-scheme:dark;--bg:#0a1015;--panel:#111a22;--line:#26343f;--text:#e7edf0;--muted:#99a9b4;--mint:#a7f0c2;--orange:#ffa76b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,sans-serif}button,input,select{font:inherit}a{color:inherit}header{height:82px;padding:0 4vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:16px}.brand{font-weight:800;letter-spacing:-1px;font-size:25px}.brand span{color:var(--mint)}.eyebrow{font:11px/1.6 ui-monospace,monospace;letter-spacing:2px;color:var(--muted);text-transform:uppercase}.status{display:flex;align-items:center;gap:9px;font:12px ui-monospace,monospace}.dot{width:7px;height:7px;background:var(--mint);border-radius:50%}main{max-width:1600px;margin:auto;padding:38px 4vw}h1{font-size:clamp(36px,5vw,64px);line-height:1.08;letter-spacing:-2px;margin:12px 0}p.intro{max-width:650px;color:var(--muted);margin:0 0 30px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:20px}.stage{position:relative;min-height:510px;height:min(65vh,690px);background:radial-gradient(ellipse at 50% 42%,#1b2b35 0,#0d151c 68%);border:1px solid var(--line);border-radius:16px;overflow:hidden}canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}.stage-label{position:absolute;top:22px;left:24px;pointer-events:none}.stage-label b{font-size:14px;font-weight:500}.stage-bottom{position:absolute;bottom:20px;left:24px;right:24px;display:flex;justify-content:space-between;pointer-events:none;font:11px ui-monospace,monospace;color:var(--muted)}.panel{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:23px;display:flex;flex-direction:column;gap:22px}.panel h2{font-size:17px;font-weight:600;margin:0}.control label{display:flex;justify-content:space-between;margin-bottom:12px;font-size:13px}.value{font:12px ui-monospace,monospace;color:var(--mint)}input[type=range]{width:100%;accent-color:var(--mint);cursor:pointer}select{width:100%;background:#0c141c;color:var(--text);border:1px solid #3c505e;border-radius:7px;padding:9px}.buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}button{border:1px solid #3c505e;border-radius:7px;background:#182630;color:var(--text);padding:9px 10px;cursor:pointer}button:hover{background:#273c48}button.primary{background:var(--mint);color:#10241b;border-color:var(--mint);font-weight:600}button.primary:hover{background:#cff9de}.toggle{display:flex;align-items:center;gap:9px;font-size:13px;cursor:pointer}.toggle input{accent-color:var(--mint);width:16px;height:16px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}.metric{border-top:1px solid var(--line);padding-top:16px}.metric strong{display:block;font-size:25px;font-weight:500;letter-spacing:-.8px}.metric span{font:10px ui-monospace,monospace;letter-spacing:1.4px;color:var(--muted)}.note{font-size:12px;color:var(--muted);margin:0}.footer{margin-top:30px;display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:12px}.footer a{text-underline-offset:4px}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,canvas:focus-visible{outline:2px solid var(--orange);outline-offset:4px}@media(max-width:850px){.layout{grid-template-columns:1fr}.stage{height:55vh;min-height:360px}.panel{display:grid;grid-template-columns:1fr 1fr}.panel h2,.panel .note{grid-column:1/-1}header{height:68px}.eyebrow.top{display:none}main{padding-top:24px}}@media(max-width:420px){.panel{grid-template-columns:1fr}.stage-bottom{font-size:9px}.footer{flex-direction:column}.metric strong{font-size:21px}}
+</style>
+</head>
+<body>
+<header><div class="brand">GP<span>Teamup</span><div class="eyebrow">An experimental workshop</div></div><div class="eyebrow top">Nodelus / Laboratory</div><div class="status"><span class="dot"></span>EXPERIMENT 001</div></header>
+<main><button style="margin-bottom:22px" onclick="parent.postMessage({type:'gpteamup:home'},'*')">← All experiments</button><div class="eyebrow">Continuous fiber / Form exploration</div><h1>Spindle study.</h1><p class="intro">One core. A continuous thread. A different way to build. Explore crossing fiber paths around a shape in motion.</p>
+<div class="layout"><section class="stage" aria-label="Interactive fiber-winding model"><div class="stage-label"><div class="eyebrow">Live form study</div><b id="shapeTitle">Spherical core</b></div><canvas id="scene" tabindex="0" aria-label="Rotating fiber-winding visualization. Drag to rotate, or use arrow keys. Use the adjacent controls to change the pattern."></canvas><div class="stage-bottom"><span>DRAG TO ORBIT · ARROW KEYS TO ROTATE</span><span id="runLabel">ROTATION / LIVE</span></div></section>
+<aside class="panel"><h2>Shape the experiment</h2>
+<div class="control"><label for="core">Core shape</label><select id="core"><option value="sphere">Sphere</option><option value="capsule">Ellipsoid</option><option value="ring">Ring</option></select></div>
+<div class="control"><label for="density">Fiber passes <output class="value" id="densityVal">36</output></label><input id="density" type="range" min="8" max="80" step="2" value="36"></div>
+<div class="control"><label for="angle">Winding angle <output class="value" id="angleVal">48°</output></label><input id="angle" type="range" min="12" max="78" value="48"></div>
+<div class="control"><label for="growth">Build progress <output class="value" id="growthVal">100%</output></label><input id="growth" type="range" min="0" max="100" value="100"></div>
+<label class="toggle"><input id="showCore" type="checkbox" checked>Show central core</label>
+<div class="buttons"><button class="primary" id="play" aria-pressed="true">Pause</button><button id="build">Rebuild</button><button id="reset">Reset view</button><button id="save">Save image</button></div>
+<p class="note">A visual sketch of the Spindle Printer idea. Paths are illustrative; this is not a winding simulation or a machine specification.</p></aside></div>
+<div class="metrics"><div class="metric"><strong id="passes">36 / 36</strong><span>FIBER PASSES SHOWN</span></div><div class="metric"><strong id="crossing">48°</strong><span>WINDING ANGLE SETTING</span></div><div class="metric"><strong>001</strong><span>WORKSHOP BUILD</span></div></div>
+<footer class="footer"><span>GPTeamup × Nodelus · Ideas made tangible.</span><a href="https://github.com/nathanconnell/GPTeamup" target="_blank" rel="noopener noreferrer">Explore the source ↗</a></footer>
+</main>
+<script>
+'use strict';
+const $=id=>document.getElementById(id),canvas=$('scene'),ctx=canvas.getContext('2d');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let spinning=!reduced,building=false,progress=100,yaw=.45,pitch=-.25,last=0,paths=[],w=1,h=1,dpr=1,drag=null;
+function resize(){const r=canvas.getBoundingClientRect();w=r.width;h=r.height;dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
+new ResizeObserver(resize).observe(canvas);
+function surface(t,p,extra=0){const shape=$('core').value;
+if(shape==='ring'){const radius=.73+(.30+extra)*Math.cos(p);return [radius*Math.cos(t),(.30+extra)*Math.sin(p),radius*Math.sin(t)]}
+const radius=1+extra;return [radius*Math.cos(t)*Math.cos(p),radius*Math.sin(t)*(shape==='capsule'?1.42:1),radius*Math.cos(t)*Math.sin(p)]}
+function regenerate(){const n=+$('density').value,a=+$('angle').value*Math.PI/180;paths=[];
+for(let i=0;i<n;i++){const points=[],phase=i*Math.PI*2/n,dir=i%2?1:-1;
+for(let j=0;j<=240;j++){const t=j*Math.PI*2/240;
+if($('core').value==='ring')points.push(surface(t,phase+dir*t*(1+Math.tan(a)),.012));
+else{const x=Math.cos(t),y=Math.sin(t)*Math.cos(a),z=Math.sin(t)*Math.sin(a)*dir;points.push([1.018*(x*Math.cos(phase)-z*Math.sin(phase)),1.018*y*($('core').value==='capsule'?1.42:1),1.018*(x*Math.sin(phase)+z*Math.cos(phase))])}}
+paths.push({points,color:i%2?'#a7f0c2':'#f5a877'})}
+$('densityVal').value=n;$('angleVal').value=+$('angle').value+'°';$('crossing').textContent=+$('angle').value+'°';$('shapeTitle').textContent={sphere:'Spherical core',capsule:'Ellipsoidal core',ring:'Ring core'}[$('core').value];updateMetrics()}
+function project(p){const c=Math.cos(yaw),s=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);let x=p[0]*c+p[2]*s,z=-p[0]*s+p[2]*c,y=p[1]*cp-z*sp;z=p[1]*sp+z*cp;const scale=Math.min(w*.31,h*.29),perspective=4/(4+z);return {x:w/2+x*scale*perspective,y:h/2+y*scale*perspective,z}}
+function stroke(points,color,width=1,alpha=1){if(points.length<2)return;ctx.beginPath();points.forEach((p,i)=>{const q=project(p);if(i===0)ctx.moveTo(q.x,q.y);else ctx.lineTo(q.x,q.y)});ctx.strokeStyle=color;ctx.globalAlpha=alpha;ctx.lineWidth=width;ctx.stroke();ctx.globalAlpha=1}
+function updateMetrics(){const n=paths.length;$('passes').textContent=Math.ceil(n*progress/100)+' / '+n;$('growthVal').value=Math.round(progress)+'%';$('growth').value=progress}
+function render(time){const dt=last?Math.min((time-last)/1000,.05):0;last=time;if(spinning&&!drag)yaw+=dt*.17;
+if(building){progress=Math.min(100,progress+dt*15);updateMetrics();if(progress>=100){building=false;$('build').textContent='Rebuild'}}
+ctx.clearRect(0,0,w,h);
+// A faint ground grid and support spindle give the floating geometry scale.
+for(let i=-5;i<=5;i++){stroke([[i*.35,1.75,-1.8],[i*.35,1.75,1.8]],'#416071',.7,.17);stroke([[-1.8,1.75,i*.35],[1.8,1.75,i*.35]],'#416071',.7,.17)}
+const end=$('core').value==='capsule'?1.44:$('core').value==='ring'?.33:1.02;stroke([[0,end,0],[0,1.75,0]],'#7c98a6',5,.55);
+if($('showCore').checked){for(let k=1;k<12;k++){const lat=-Math.PI/2+k*Math.PI/12,points=[];for(let j=0;j<=100;j++){const t=j*Math.PI*2/100;points.push($('core').value==='ring'?surface(t,k*Math.PI*2/12):surface(lat,t))}stroke(points,'#7293a4',.7,.17)}for(let k=0;k<12;k++){const pts=[];for(let j=0;j<=100;j++)pts.push($('core').value==='ring'?surface(k*Math.PI*2/12,j*Math.PI*2/100):surface(-Math.PI/2+j*Math.PI/100,k*Math.PI*2/12));stroke(pts,'#7293a4',.7,.17)}}
+const segments=[];const count=paths.length*progress/100;
+paths.forEach((path,i)=>{const fraction=Math.min(1,Math.max(0,count-i));for(let j=1;j<=Math.floor((path.points.length-1)*fraction);j++){const a=project(path.points[j-1]),b=project(path.points[j]);segments.push({a,b,color:path.color,z:(a.z+b.z)/2})}});
+segments.sort((a,b)=>b.z-a.z);
+for(const seg of segments){ctx.beginPath();ctx.moveTo(seg.a.x,seg.a.y);ctx.lineTo(seg.b.x,seg.b.y);ctx.strokeStyle=seg.color;ctx.lineWidth=seg.z<0?1.25:.8;ctx.globalAlpha=seg.z<0?.83:.17;ctx.stroke()}ctx.globalAlpha=1;
+if(building&&count>0&&count<paths.length){const i=Math.floor(count),j=Math.min(240,Math.floor((count-i)*240)),p=project(paths[i].points[j]);const glow=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,22);glow.addColorStop(0,'#c6b4ff');glow.addColorStop(1,'#a270ff00');ctx.fillStyle=glow;ctx.fillRect(p.x-22,p.y-22,44,44);ctx.fillStyle='#eee8ff';ctx.beginPath();ctx.arc(p.x,p.y,2.6,0,Math.PI*2);ctx.fill()}
+requestAnimationFrame(render)}
+function setPlay(){ $('play').textContent=spinning?'Pause':'Rotate';$('play').setAttribute('aria-pressed',String(spinning));$('runLabel').textContent=spinning?'ROTATION / LIVE':'ROTATION / PAUSED'}
+$('play').onclick=()=>{spinning=!spinning;setPlay()};$('build').onclick=()=>{building=!building;if(building){progress=0;$('build').textContent='Stop build'}else $('build').textContent='Rebuild';updateMetrics()};
+$('growth').oninput=()=>{building=false;$('build').textContent='Rebuild';progress=+$('growth').value;updateMetrics()};
+for(const id of ['core','density','angle'])$(id).addEventListener('input',regenerate);
+$('reset').onclick=()=>{yaw=.45;pitch=-.25};$('save').onclick=()=>{const exportCanvas=document.createElement('canvas');exportCanvas.width=canvas.width;exportCanvas.height=canvas.height;const c=exportCanvas.getContext('2d');c.fillStyle='#0d151c';c.fillRect(0,0,exportCanvas.width,exportCanvas.height);c.drawImage(canvas,0,0);const a=document.createElement('a');a.download='gpteamup-spindle-study.png';a.href=exportCanvas.toDataURL('image/png');a.click()};
+canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId)});
+canvas.addEventListener('pointermove',e=>{if(!drag)return;yaw+=(e.clientX-drag.x)*.008;pitch=Math.max(-1.4,Math.min(1.4,pitch+(e.clientY-drag.y)*.008));drag={x:e.clientX,y:e.clientY}});
+for(const event of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(event,()=>drag=null);
+canvas.addEventListener('keydown',e=>{const keys={ArrowLeft:[-.12,0],ArrowRight:[.12,0],ArrowUp:[0,-.12],ArrowDown:[0,.12]};if(keys[e.key]){e.preventDefault();yaw+=keys[e.key][0];pitch=Math.max(-1.4,Math.min(1.4,pitch+keys[e.key][1]))}});
+resize();regenerate();setPlay();requestAnimationFrame(render);
+</script>
+</body>
+</html>
+
