@@ -9,6 +9,8 @@ The repository root `index.html` is the workshop index. Each card opens a separa
 - `experiments/spindle.html` — Spindle Study: a visual sketch of continuous-fiber winding around different core shapes, with build replay and PNG export.
 - `experiments/orbits.html` — Orbital Arrangements: a moving-gap scene, polar-plane phasing, and same-path opposite-direction traffic.
 
+- `experiments/spellbook.html` — The Spellbook: four spell cards, encoded lobspell generation, induction and book exports, and a protocol inspector.
+
 The spindle paths are illustrative. The orbital model assumes fixed circular point trajectories at one radius and period; it does not model operational spacecraft safety.
 
 ## Nodelus → GitHub
@@ -40,3 +42,19 @@ Background: [NASA: Orbits and Kepler's Laws](https://science.nasa.gov/solar-syst
 JavaScript syntax checked. The analytic separation formula was checked against fixed same-direction spacing, opposite-direction contact, aligned polar crossings, and 60 independent dense trajectory samplings.
 
 No accounts, API keys, backend, or AI service are used by these experiments.
+
+## Spellbook demo
+
+The canonical machine-readable book is `spellbooks/gpteamup-v1.json`; its induction is `spellbooks/induction-v1.txt`. The experiment embeds matching copies so it can form complete handoffs without a network fetch. Update both the source files and the embedded copies together if changing the book.
+
+The demo includes `refine_prompt_v1`, `summarize_source_v1`, `compare_options_v1`, and `create_spell_v1`. The last asks an arty to propose a new spell; it does not install that proposal automatically.
+
+A spell is the reusable definition and field schema. A lobspell is its filled request:
+
+`I_LOB_THE_SPELL_OF::spellname=...::spellbook=...::spellbook_id=...::input=...`
+
+Values use encodeURIComponent-style UTF-8 percent encoding and decode exactly once, so literal `::`, equals signs, plus signs, percent signs, line breaks, and Unicode can appear in inputs. The inspector rejects duplicate fields, malformed encoding, mismatched IDs, unknown spells or fields, invalid URLs, missing required inputs, and unsupported selections.
+
+The book ID is an exact identity/version check, not a cryptographic authenticity guarantee. An arty still follows its own platform instructions and tool permissions. The page calls no AI API and performs no background work. Inputs remain in page memory until copied or downloaded; drafts are not persisted across reloads.
+
+Use **Copy complete handoff** for one paste containing the induction, full spellbook, and current lobspell. Use **Copy induction + book** to prepare a new conversation, then send smaller lobspells afterward. Embedded clipboard APIs may be unavailable; when both automatic copy methods fail the page presents selected text for manual copying. Downloads work through the existing sandbox's allowed download capability.
