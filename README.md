@@ -9,7 +9,7 @@ The repository root `index.html` is the workshop index. Each card opens a separa
 - `experiments/spindle.html` — Spindle Study: a visual sketch of continuous-fiber winding around different core shapes, with build replay and PNG export.
 - `experiments/orbits.html` — Orbital Arrangements: a moving-gap scene, polar-plane phasing, and same-path opposite-direction traffic.
 
-- `experiments/spellbook.html` — The Spellbook: four spell cards, encoded lobspell generation, induction and book exports, and a protocol inspector.
+- `experiments/spellbook.html` — Spellbook Workshop: use and author spells, import AI-written definitions, manage books, save portable workspaces, and prepare complete AI handoffs.
 
 The spindle paths are illustrative. The orbital model assumes fixed circular point trajectories at one radius and period; it does not model operational spacecraft safety.
 
@@ -43,18 +43,29 @@ JavaScript syntax checked. The analytic separation formula was checked against f
 
 No accounts, API keys, backend, or AI service are used by these experiments.
 
-## Spellbook demo
+## Spellbook Workshop
 
-The canonical machine-readable book is `spellbooks/gpteamup-v1.json`; its induction is `spellbooks/induction-v1.txt`. The experiment embeds matching copies so it can form complete handoffs without a network fetch. Update both the source files and the embedded copies together if changing the book.
+The workshop has four sections:
 
-The demo includes `refine_prompt_v1`, `summarize_source_v1`, `compare_options_v1`, and `create_spell_v1`. The last asks an arty to propose a new spell; it does not install that proposal automatically.
+- **Use spells:** choose or search a spell, fill its inputs, try sample inputs, and copy a full handoff or compact lobspell.
+- **Write spells:** author or edit a spell’s name, purpose, expected result, inputs, and formula. Inputs support short text, multiline text, URLs, choice lists, defaults, required fields, alternative inputs, and minimum line counts. Inputs can be reordered or removed.
+- **Books & saves:** create an empty book, copy or rename a book, export definitions, or save and reopen a workspace.
+- **How it works:** instructions, induction, terminology, and an inspector that checks requests without executing them.
 
-A spell is the reusable definition and field schema. A lobspell is its filled request:
+The shared starter at `spellbooks/gpteamup-v1.json` includes `refine_prompt_v1`, `summarize_source_v1`, `compare_options_v1`, and `create_spell_v1`. Its existing definitions and ID are preserved. The page embeds the starter book and generates the induction included in `spellbooks/induction-v1.txt`; neither requires a network fetch to prepare a full handoff.
+
+The page calls no AI API and performs no background work. **Copy AI drafting request** prepares a request to paste into an arty. Import the returned JSON, review the proposed formula in the editor, then save it to install it in a working book. Single definitions, whole books, and workspace files are supported; JSON code fences are accepted. Imported text is treated as data, never executed as browser code.
+
+Editing a shared book creates a personal working copy. Every saved definition change or book rename gets a new book ID and an `inline:book_id` reference. That reference is not a hosted URL: send a full handoff once so the arty has the actual definitions. Browser edits do not publish anything to GitHub. The shared starter remains available, and **Undo last change** restores the preceding book operation.
+
+A workspace JSON file contains the books and filled inputs. An exported spellbook contains only definitions. Save an edited spell before exporting: unfinished editor drafts are not included. Books and inputs also save in browser storage when it is available; the Nodelus sandbox restricts storage, so use the workspace file to resume later. **View / copy workspace JSON** offers a text backup when a browser does not download a file. Reopen either JSON text or files using **Open / import**. Imports keep existing books and reject different definitions that reuse an existing book ID.
+
+A spell is a reusable definition and field schema. A lobspell is its filled request:
 
 `I_LOB_THE_SPELL_OF::spellname=...::spellbook=...::spellbook_id=...::input=...`
 
-Values use encodeURIComponent-style UTF-8 percent encoding and decode exactly once, so literal `::`, equals signs, plus signs, percent signs, line breaks, and Unicode can appear in inputs. The inspector rejects duplicate fields, malformed encoding, mismatched IDs, unknown spells or fields, invalid URLs, missing required inputs, and unsupported selections.
+Values use encodeURIComponent-style UTF-8 percent encoding and decode exactly once. Literal delimiters, equals signs, plus signs, percent signs, line breaks, and Unicode survive the roundtrip. The inspector rejects duplicate fields, malformed encoding, mismatched IDs, unknown spells or fields, invalid URLs, missing required inputs, insufficient multiline options, and unsupported selections.
 
-The book ID is an exact identity/version check, not a cryptographic authenticity guarantee. An arty still follows its own platform instructions and tool permissions. The page calls no AI API and performs no background work. Inputs remain in page memory until copied or downloaded; drafts are not persisted across reloads.
+Use **Copy full handoff** for the induction, current spellbook, and filled request in one paste. In the same prepared conversation, send compact lobspells afterward. Send a new full handoff after revising or switching books. The book ID is an identity/version check, not a cryptographic authenticity guarantee; arties still follow their own platform instructions and tool permissions. Clipboard failures open selected text for manual copying, and a separate view/select control is always available.
 
-Use **Copy complete handoff** for one paste containing the induction, full spellbook, and current lobspell. Use **Copy induction + book** to prepare a new conversation, then send smaller lobspells afterward. Embedded clipboard APIs may be unavailable; when the Clipboard API cannot write, the page presents selected text for manual copying instead of relying on a deprecated copy command. Downloads work through the existing sandbox's allowed download capability.
+Validation covered all four starter spells, encoding roundtrips, invalid requests, import validation, working-copy identity, and workspace roundtrips. Browser checks covered input authoring and reordering, an imported spell’s live form, nested sandbox editing, full handoffs, browser saving, standalone JSON download, and workspace backup/restore in the embedded layout.
