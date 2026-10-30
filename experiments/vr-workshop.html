@@ -11,7 +11,7 @@ AFRAME.registerComponent('station', {
  this.el.addEventListener('mouseleave',()=>this.el.setAttribute('scale','1 1 1'));
 }});
 </script></head><body>
-<div id="help"><b>GPTEAMUP · VR WORKSHOP</b><br>Point and trigger a glowing panel with your Quest controller. Look around and explore. In the regular browser, click panels with your pointer.<br><a href="../index.html">← Experiment index</a><br><small>Press <b>Enter VR</b> at bottom right for immersive mode.</small></div><div id="status" role="status">Ready · Touch the workshop controls.</div>
+<div id="help"><b>GPTEAMUP · VR WORKSHOP</b><br>Point and trigger a glowing panel with your Quest controller. Look around and explore. In the regular browser, click panels with your pointer.<br><a href="https://nodelus.com/gpteamup/" id="returnLink">← Experiment index</a><br><small>Press <b>Enter VR</b> at bottom right for immersive mode.</small></div><div id="status" role="status">Ready · Touch the workshop controls.</div>
 <a-scene background="color:#07101e" renderer="antialias:true; colorManagement:true" vr-mode-ui="enabled:true" xr-mode-ui="enabled:true;XRMode:xr" loading-screen="dotsColor:#61ffcb;backgroundColor:#07101e">
 <a-assets></a-assets>
 <a-entity light="type:ambient;intensity:.6;color:#8cb7dc"></a-entity>
@@ -59,4 +59,8 @@ AFRAME.registerComponent('station', {
 </a-entity>
 <a-text value="GPTEAMUP  /  EXPERIMENT 004" width="5" align="center" color="#7099ae" position="0 .3 -2.9" rotation="-90 0 0"></a-text>
 </a-scene>
-</body></html>
+<script>
+document.getElementById('returnLink').addEventListener('click', function(e){
+  if(window.parent !== window){e.preventDefault();window.parent.postMessage({type:'gpteamup:home'},'*');}
+});
+</script></body></html>
