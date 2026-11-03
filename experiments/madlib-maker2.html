@@ -1,8 +1,8 @@
 <!doctype html>
-<!-- GPTeamup-hosted Madlib_Maker2; instructions loaded through online links. -->
+<!-- GPTeamup-hosted Madlib_Maker3; instructions loaded through online links. -->
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Madlib_Maker2 · Nate's Test Spellbook</title>
+<title>Madlib_Maker3 · Nate's Test Spellbook</title>
 <meta name="description" content="Turn any subject into an original printable fill-in-the-blanks story. Choose the length, number of blanks, and optional themed border.">
 <style>
 :root{color-scheme:light;--paper:#f5f2e9;--ink:#202b26;--muted:#57645b;--accent:#b33f22;--line:#d3d7c9}
@@ -16,7 +16,7 @@ main{max-width:820px;margin:0 auto;padding:38px 24px 60px}header{display:flex;ju
 <header><a class="brand" id="all-spells" href="https://raw.githack.com/nathanconnell/GPTeamup/main/experiments/nates-spellbook-test.html">← All spells</a><a href="https://github.com/nathanconnell/GPTeamup/blob/main/experiments/madlib-maker2.html" target="_blank" rel="noopener noreferrer">View on GitHub</a></header>
 <section class="hero" aria-labelledby="spell-title">
 <span class="eyebrow">Experiment 002 / Online spell</span>
-<h1 id="spell-title">Madlib_Maker2</h1>
+<h1 id="spell-title">Madlib_Maker3</h1>
 <p class="lead">Your subject. Your settings. One compact lobspell.<br>Your AI loads the instructions from the spellbook.</p>
 <div class="meta"><span class="tag">Original stories</span><span class="tag">PDF or text</span><span class="tag">Optional border art</span></div>
 </section>
@@ -46,13 +46,13 @@ main{max-width:820px;margin:0 auto;padding:38px 24px 60px}header{display:flex;ju
 </section>
 <details><summary>See exactly what you are copying</summary>
 <label for="invocation">Lobspell with links + current settings</label><textarea id="invocation" readonly spellcheck="false"></textarea>
-<p>Online instructions: <a href="https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/lobspell-v1.txt" target="_blank" rel="noopener noreferrer">Induction</a> · <a href="https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/nates-test/v2.1.1.txt" target="_blank" rel="noopener noreferrer">Spellbook</a>. Default settings are omitted from the copied text; the spellbook supplies them.</p>
+<p>Online instructions: <a href="https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/lobspell-v1.txt" target="_blank" rel="noopener noreferrer">Induction</a> · <a href="https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/nates-test/v2.1.2.txt" target="_blank" rel="noopener noreferrer">Spellbook</a>. Default settings are omitted from the copied text; the spellbook supplies them.</p>
 </details>
 <details><summary>Build a printable collection</summary><p>Reuse a collection title and paper size. Change the subject and story number, then copy a new spell. Keep the worksheets you receive; you can ask your AI to combine those files later. This page does not save or assemble your book.</p></details>
-<div class="footer">Nates_Test_Spellbook001 · v2.1.1 · Madlib_Maker2 v1.0.0<br>This page prepares the brief; your AI creates the worksheet. Your entries stay on this page until you copy and share them. Reloading clears your entries.</div>
+<div class="footer">Nates_Test_Spellbook001 · v2.1.2 · Madlib_Maker3 v1.0.0<br>This page prepares the brief; your AI creates the worksheet. Your entries stay on this page until you copy and share them. Reloading clears your entries.</div>
 <noscript><p>Turn on JavaScript to prepare a lobspell with your chosen settings.</p></noscript>
 </main>
-<script id="spell-data" type="application/json">{"inductionUrl":"https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/lobspell-v1.txt","bookUrl":"https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/nates-test/v2.1.1.txt","defaults":{"target_words":200,"blank_count":12,"audience":"Family-friendly","output":"pdf_preferred","border":"simple","paper":"letter","collection_title":"","story_number":1,"extra_notes":""}}</script>
+<script id="spell-data" type="application/json">{"inductionUrl":"https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/lobspell-v1.txt","bookUrl":"https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/nates-test/v2.1.2.txt","defaults":{"target_words":200,"blank_count":12,"audience":"Family-friendly","output":"pdf_preferred","border":"simple","paper":"letter","collection_title":"","story_number":1,"extra_notes":""}}</script>
 <script>
 "use strict";
 const data = JSON.parse(document.getElementById("spell-data").textContent);
@@ -80,7 +80,7 @@ function promptText() {
     if (key === "subject" || value !== data.defaults[key]) params[key] = value;
   }
   return "First read induction v1.1.0 at " + data.inductionUrl + " (reuse it if already loaded in this chat). Then interpret and execute this lobspell:\nI_LOB_THE_SPELL_OF " +
-    JSON.stringify({spell:"Madlib_Maker2", book:data.bookUrl, params});
+    JSON.stringify({spell:"Madlib_Maker3", book:data.bookUrl, params});
 }
 function refresh() {
   field("invocation").value = promptText();

@@ -1,0 +1,197 @@
+Nates_Test_Spellbook001
+spellbook_id: nates_test_spellbook001
+spellbook_version: 2.1.2
+induction_protocol: lobspell-json 1.1.0 (Madlib_Maker3)
+spell_count: 2
+
+PURPOSE
+Create original, refined, printable fill-in-the-blanks short-story activities.
+The user chooses the subject and parameters; the AI handles writing, grammatical
+design, blank placement, testing, layout, and export. This is a worksheet CREATOR.
+Do not start asking the user to supply nouns/adjectives or run a guessing game.
+
+INVOCATION
+Use the external induction for terminology, invocation format, and book loading:
+https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/lobspell-v1.txt
+Preferred marker: I_LOB_THE_SPELL_OF followed by JSON. LOB is an accepted alias.
+This book supplies the spell definitions and shared task formula below.
+
+SPELL
+spell_name: Madlib_Maker
+spell_version: 2.0.0
+description: Make an original printable word-game worksheet from a subject, exact
+blank count, and target length, with optional themed illustration.
+required_capabilities: text generation
+optional_capabilities: web retrieval, file creation, PDF layout/rendering, image generation
+
+SPELL
+spell_name: Madlib_Maker3
+spell_version: 1.0.0
+description: The same printable worksheet creator, invoked through a compact
+I_LOB_THE_SPELL_OF JSON message with online induction and spellbook links.
+required_capabilities: web retrieval for first use, text generation
+optional_capabilities: file creation, PDF layout/rendering, image generation
+
+SHARED FORMULA
+Both spells use the same parameters, defaults, and worksheet formula.
+Madlib_Maker3 changes instruction delivery, not the worksheet requirements.
+
+PARAMETERS AND DEFAULTS
+subject: required; ask one concise question if missing. "Surprise me" authorizes
+  choosing a playful premise yourself.
+target_words: 200; positive integer; counts story body before blanking, excluding
+  title, directions, labels, word list, and footer. Aim within +/-10 percent.
+blank_count: 12; positive integer; EXACT number of blank occurrences and answers.
+audience: family-friendly; adapt vocabulary and humor to any supplied age/audience.
+output: pdf_preferred; alternatives text. pdf_preferred means create an actual PDF
+  if capable, otherwise deliver the complete clean text worksheet immediately.
+border: simple; alternatives none, ai_illustrated. simple means a thin printable
+  rule; none means no border; ai_illustrated requests themed generated artwork.
+paper: letter; alternative a4. Portrait, with consistent dimensions throughout.
+collection_title: empty; optional book/series title for headers and filenames.
+story_number: 1; positive integer; chosen by the user, not silently incremented.
+extra_notes: empty; optional tone, plot, visual style, or continuity preferences.
+
+OPERATING STYLE
+If subject and usable parameters are supplied, start creating without a setup
+question or approval round. Apply defaults for omitted optional settings.
+Keep output focused: a short acknowledgment if needed, then the finished
+deliverable and a brief capability/fallback note. Do not narrate every revision
+or disclose private reasoning. Ask only when a genuine ambiguity or impossible
+constraint prevents a useful result. Allow user revisions, pause, or cancellation.
+Do not ask the creator to fill in the blanks before making the worksheet.
+
+FORMULA — EXECUTE IN ORDER
+
+1. RESOLVE THE BRIEF AND CAPABILITIES
+Validate integer fields, supported choices, and the subject. Explicitly reject
+invalid values rather than silently substituting other values. If the selected
+length cannot reasonably hold the requested blanks with enough coherent prose,
+ask whether to increase length or reduce blanks. Do not silently change the exact
+blank count or cram unreadable text onto a page. Large requests can use more pages;
+state material feasibility limits rather than making arbitrary claims.
+Check actual available capabilities. Prefer useful delivery over a stalled
+workflow: PDF unavailable -> text; image generation unavailable -> simple border.
+Report a fallback briefly. Do not call an image description a generated image.
+Do not use an unrelated provider or paid service without the user's authorization.
+
+2. WRITE AN ORIGINAL STORY
+Develop a fresh premise on the requested subject, with a beginning, escalation,
+and a comic payoff. Use concrete situations, lively verbs, and varied sentences.
+Write the complete coherent story first, approximately target_words in length.
+Keep enough unblanked subject details that the theme remains recognizable.
+Avoid copying a published story, recycling a fixed template, or writing a list
+of disconnected sentences. Do not imply affiliation with the Mad Libs brand;
+use a descriptive "Fill-in-the-blanks story" subtitle on the printed activity.
+For repeats in the same conversation, vary setting, conflict, and payoff from
+available earlier stories unless the user requests continuity. Do not claim
+knowledge of previous chats or worksheets that have not been supplied.
+
+3. DESIGN EXACTLY blank_count BLANKS
+Select words/short phrases whose replacement creates surprising but grammatically
+workable combinations. Distribute blanks throughout the story, including the
+payoff. Mix suitable word types; do not impose a fixed mix when count is small.
+Maintain a slot table: number, grammatical/category label, original phrase,
+and location. Every integer from 1 through blank_count appears once in the
+story and once in the companion word list. No duplicate or skipped slot numbers.
+Count blank OCCURRENCES, not just distinct labels. Do not reuse the same number
+in multiple locations. Keep names consistent without requiring repeated blanks.
+Use precise, accessible labels: singular noun, plural noun, adjective,
+past-tense verb, verb ending in -ing, place, animal, food, number, exclamation.
+Specify grammatical form or number constraints where needed; avoid vague "verb"
+when tense matters. Prompts should not reveal the intended answer or plot.
+Example choices are for internal checking, not an answer key in the final.
+Avoid brittle a/an agreement (rephrase surrounding text), mismatched singular/
+plural verbs, pronoun dependencies, irregular inflections, or prepositions that
+only work with the original word. Prefer structures robust to surprising answers.
+
+4. REFINE AND TEST BEFORE DELIVERY
+Read for humor, coherence, audience fit, and theme retention.
+Substitute at least two varied sets of sample answers into the draft as a check:
+one ordinary set and one absurd set. Repair grammar dependencies and weak jokes,
+then remove all test answers. Do not publish test-filled versions by default.
+Verify exact blank count, numbering, word-list agreement, label precision,
+and the target story length. If counting/code tools exist, use them to check
+rather than relying only on an eyeball count. Otherwise check carefully without
+claiming programmatic verification. Make corrections before exporting.
+One numbering occurrence in a word list and one in the story are expected; the
+blank_count applies to the story alone. Retain the finalized slot table while
+formatting so the two sections cannot drift.
+
+5. PREPARE THE PRINTABLE ACTIVITY
+Default to a two-part worksheet, separated for spoiler-free play:
+A. WORD COLLECTION: title or neutral worksheet ID, short instruction to supply
+   words before reading the story, and numbered labeled writing lines.
+B. STORY: original title, short directions to transfer the collected words,
+   numbered writing blanks, and enough vertical space for handwriting.
+Use a distinct page for each part in PDF, keeping the story out of view during
+word collection. Long lists/stories may occupy additional pages; label sections.
+Do not include the original filled story or answer key unless requested.
+For text output use clear section headings and a visible page-break suggestion
+between parts; do not pretend the chat itself guarantees printed pagination.
+Story blanks should look like "__________ (3: plural noun)" in text; PDF can put
+small numbers/labels beneath the writing lines to reduce clutter.
+Maintain readable type (generally 11-12 pt body or larger), generous line spacing,
+a white text area, at least 0.5-inch safe margins, and usable writing lines.
+Wrap long sentences normally; keep a blank and its label together. Add pages
+rather than shrinking to illegible type. Default US Letter is 8.5 x 11 inches;
+A4 is 210 x 297 mm. Use consistent typography, section treatment, and page size
+for later collection assembly. Put collection_title and story_number in a
+restrained header/footer if supplied. Do not add a cover page to each story.
+
+6. OPTIONAL BORDER
+none: leave clean white margins.
+simple: use a thin, unobtrusive rule within the printable area.
+ai_illustrated: when actual image generation is available, create an original
+themed border using objects/scenes related to the requested subject. Default to
+light-ink line art with a generous empty white center, sparse corner/edge motifs,
+and no words, letters, logos, fake writing, or answer clues. Match the page aspect.
+Generate decorative ART ONLY. Lay out actual story text and numbered blanks using
+real typography over the clear interior; do not ask an image model to render the
+worksheet text. Keep illustrations outside text and handwriting areas.
+Check contrast and print margins. If the generated art crowds the layout, simplify
+or omit it rather than obscuring text or deleting blanks. Keep the frame suitable
+for a coherent collection when collection style references are supplied.
+If artwork cannot be generated or cannot be embedded, use a simple border and
+say so briefly. A separate image is optional; do not stall the worksheet for it.
+Text-only output should remain clean text without decorative ASCII borders.
+
+7. EXPORT, CHECK, AND DELIVER
+For pdf_preferred, create and attach/link a real PDF if file tools support it.
+Render and inspect all PDF pages where tools permit: check clipped text,
+overlapping art, missing blanks, sequence, margins, and page breaks; fix issues.
+Check extracted text/slot counts separately when possible. Never say the PDF was
+visually checked if rendering was unavailable. Do not fabricate a download link.
+Use a filename such as Collection_001_Story_Title.pdf (safe characters).
+When PDF tools are absent or export fails, return the complete print-ready text
+sections, and state once that PDF export is unavailable. Do not stop at an outline,
+tell the user to find another AI, or hand them code in place of the worksheet.
+For output=text, deliver the complete word list and story directly; do not attempt
+PDF. If an illustrated border was requested, explain that text cannot embed it
+and omit it unless a separate generated image is genuinely useful/available.
+Finish with a short creator note outside the worksheet: subject, requested target
+length, checked blank count, format, and any capability fallback. If measured,
+include actual draft word count; do not invent exact measurements.
+Do not force a confirmation round after the final result.
+
+8. REUSE AND COLLECTIONS
+Each lobspell creates a NEW activity with its own parameters. Follow supplied
+values rather than inheriting unrelated settings from an earlier run.
+Defaults apply to omitted fields unless the user explicitly asks to reuse settings.
+Keep page design consistent when collection_title/style are reused, while varying
+story content. Do not overwrite an earlier deliverable; use distinct filenames.
+If asked to assemble a book, request any missing earlier files, preserve their
+order, combine the available worksheets consistently, and add a cover/contents
+only if useful or requested. Do not claim to have merged files without tools.
+A series title and story number are organization aids, not automatic cross-chat
+storage. A resume note can list parameters, approved choices, stage, and available
+files; provide it on request without exposing private reasoning.
+
+SUCCESS CRITERIA
+An original story on the selected subject, approximately the chosen/default length,
+EXACTLY the requested number of well-designed blanks, a matching word-collection
+sheet, and a readable PDF or complete text fallback. Requested border art is
+generated only when supported; limitations are honestly disclosed. The AI performs
+the drafting and refinement. The user receives an activity to print or collect,
+not a demand to play an eight-word chat game.
+END OF SPELLBOOK
