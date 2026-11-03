@@ -79,7 +79,7 @@ function promptText() {
   for (const [key, value] of Object.entries(values)) {
     if (key === "subject" || value !== data.defaults[key]) params[key] = value;
   }
-  return "Use induction " + data.inductionUrl + " to cast:\nLOB " +
+  return "First read the induction at " + data.inductionUrl + " (reuse it if already loaded in this chat). Then interpret and execute this lobspell:\nLOB " +
     JSON.stringify({spell:"Madlib_Maker2", book:data.bookUrl, params});
 }
 function refresh() {
