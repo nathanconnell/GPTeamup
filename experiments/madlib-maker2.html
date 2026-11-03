@@ -1,0 +1,139 @@
+<!doctype html>
+<!-- GPTeamup-hosted Madlib_Maker2; instructions loaded through online links. -->
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Madlib_Maker2 · Nate's Test Spellbook</title>
+<meta name="description" content="Turn any subject into an original printable fill-in-the-blanks story. Choose the length, number of blanks, and optional themed border.">
+<style>
+:root{color-scheme:light;--paper:#f5f2e9;--ink:#202b26;--muted:#57645b;--accent:#b33f22;--line:#d3d7c9}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 system-ui,sans-serif}
+main{max-width:820px;margin:0 auto;padding:38px 24px 60px}header{display:flex;justify-content:space-between;gap:16px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:20px;font-size:13px}header a{color:var(--muted)}.brand{font-weight:750;letter-spacing:.03em}.tag{display:inline-block;border:1px solid var(--line);border-radius:30px;padding:4px 12px;font-size:12px;font-weight:650;letter-spacing:.07em;text-transform:uppercase}.hero{padding:48px 0 28px}.eyebrow{color:var(--accent);font-weight:750;font-size:12px;letter-spacing:.16em;text-transform:uppercase}h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(38px,8vw,66px);line-height:1.12;letter-spacing:-.04em;margin:15px 0 18px;overflow-wrap:anywhere}.lead{max-width:570px;font-size:21px;line-height:1.5;margin:0;color:var(--muted)}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.card{background:#fffef8;border:1px solid var(--line);border-radius:18px;padding:30px;box-shadow:0 8px 25px #253b1e06}h2{margin:0 0 18px;font-size:23px;letter-spacing:-.02em}ol{padding-left:24px;margin:0 0 25px}li{padding-left:5px;margin:10px 0}button{font:inherit;cursor:pointer;border:0;border-radius:9px;padding:14px 20px;font-weight:700}button.primary{background:var(--accent);color:white;min-height:52px;width:100%;text-align:center}button.secondary{background:#e9eddf;color:var(--ink);margin:10px 0}.hint{color:var(--muted);font-size:14px;margin:12px 0 0}.status{font-size:14px;min-height:25px;margin-top:12px;color:#23503c}.status.error{color:#9e301c}details{border-top:1px solid var(--line);padding:18px 0}details:first-of-type{margin-top:26px}summary{cursor:pointer;font-weight:650;font-size:15px}details p{font-size:15px;color:var(--muted)}a{color:#83341f;text-underline-offset:3px}textarea{width:100%;min-height:210px;padding:14px;font:13px/1.55 ui-monospace,monospace;border:1px solid #a4ad9f;border-radius:8px;background:white;color:var(--ink);resize:vertical;margin-top:12px}label{display:block;font-size:14px;margin-top:12px}.footer{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:20px;margin-top:25px;overflow-wrap:anywhere}button:hover{filter:brightness(.94)}:focus-visible{outline:3px solid #356b8a;outline-offset:4px}[hidden]{display:none!important}@media(max-width:480px){main{padding:24px 18px 40px}.hero{padding-top:35px}.card{padding:22px}header{align-items:flex-start}.lead{font-size:19px}}
+
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:24px 0}.wide{grid-column:1/-1}.fields label{margin:0 0 6px;font-size:14px;font-weight:650}input,select,.notes{width:100%;border:1px solid #a4ad9f;border-radius:7px;background:white;color:var(--ink);padding:11px;font:16px/1.4 system-ui,sans-serif}.notes{min-height:85px;margin:0}fieldset{border:0;padding:0;margin:0;min-width:0}legend{font-weight:700;font-size:19px}.fields p{margin:5px 0 0;font-size:12px;color:var(--muted)}.card details{margin:12px 0}.card details .fields{margin:15px 0}.footer{padding-bottom:10px}@media(max-width:520px){.fields{grid-template-columns:1fr}.wide{grid-column:auto}}
+</style>
+</head><body><main>
+<header><a class="brand" id="all-spells" href="https://raw.githack.com/nathanconnell/GPTeamup/main/experiments/nates-spellbook-test.html">← All spells</a><a href="https://github.com/nathanconnell/GPTeamup/blob/main/experiments/madlib-maker2.html" target="_blank" rel="noopener noreferrer">View on GitHub</a></header>
+<section class="hero" aria-labelledby="spell-title">
+<span class="eyebrow">Experiment 002 / Online spell</span>
+<h1 id="spell-title">Madlib_Maker2</h1>
+<p class="lead">Your subject. Your settings. One compact lobspell.<br>Your AI loads the instructions from the spellbook.</p>
+<div class="meta"><span class="tag">Original stories</span><span class="tag">PDF or text</span><span class="tag">Optional border art</span></div>
+</section>
+<section class="card" aria-labelledby="start">
+<h2 id="start">Make your next worksheet</h2>
+<p class="hint">Choose the brief, copy the spell, then paste it into your AI chat. It creates an unfilled activity with a matching word list—not a round of questions for you to play.</p>
+<form id="settings">
+<div class="fields">
+<div class="wide"><label for="subject">What is the story about?</label><input id="subject" name="subject" required maxlength="1000" placeholder="A birthday party on Mars, a runaway sandwich…"><p>Any subject, or type “Surprise me”.</p></div>
+<div><label for="target-words">Story length (words)</label><input id="target-words" name="target_words" type="number" min="1" step="1" value="200" required><p>Approximate length before words are removed.</p></div>
+<div><label for="blank-count">Number of blanks</label><input id="blank-count" name="blank_count" type="number" min="1" step="1" value="12" required><p>Exact number of missing words or phrases.</p></div>
+<div><label for="output">Final format</label><select id="output" name="output"><option value="pdf_preferred">PDF if available; otherwise text</option><option value="text">Text only</option></select></div>
+<div><label for="border">Page border</label><select id="border" name="border"><option value="simple">Simple print-friendly frame</option><option value="ai_illustrated">AI-illustrated themed border</option><option value="none">No border</option></select></div>
+</div>
+<details><summary>Audience &amp; book settings</summary><div class="fields">
+<div><label for="audience">Who is it for?</label><input id="audience" name="audience" maxlength="300" value="Family-friendly"></div>
+<div><label for="paper">Paper size</label><select id="paper" name="paper"><option value="letter">US Letter (8.5 × 11 in)</option><option value="a4">A4</option></select></div>
+<div><label for="collection">Book / collection title (optional)</label><input id="collection" name="collection_title" maxlength="200" placeholder="Nate's Book of Nonsense"></div>
+<div><label for="story-number">Story number</label><input id="story-number" name="story_number" type="number" min="1" step="1" value="1" required></div>
+<div class="wide"><label for="notes">Extra directions (optional)</label><textarea class="notes" id="notes" name="extra_notes" maxlength="3000" placeholder="Dry humor, woodland line art, suitable for ages 8–10…"></textarea></div>
+</div></details>
+<button class="primary" id="copy" type="button">Copy lobspell + my settings</button>
+<p class="hint">Web access required. The copied lobspell includes induction and spellbook links plus your settings. PDF export and border art depend on your AI’s tools.</p>
+<div id="status" class="status" role="status" aria-live="polite"></div>
+<div id="manual" hidden><label for="manual-text">Copy this text manually, then paste it into your AI:</label><textarea id="manual-text" readonly spellcheck="false"></textarea></div>
+</form>
+</section>
+<details><summary>See exactly what you are copying</summary>
+<label for="invocation">Lobspell with links + current settings</label><textarea id="invocation" readonly spellcheck="false"></textarea>
+<p>Online instructions: <a href="https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/lobspell-v1.txt" target="_blank" rel="noopener noreferrer">Induction</a> · <a href="https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/nates-test/v2.1.0.txt" target="_blank" rel="noopener noreferrer">Spellbook</a>. Default settings are omitted from the copied text; the spellbook supplies them.</p>
+</details>
+<details><summary>Build a printable collection</summary><p>Reuse a collection title and paper size. Change the subject and story number, then copy a new spell. Keep the worksheets you receive; you can ask your AI to combine those files later. This page does not save or assemble your book.</p></details>
+<div class="footer">Nates_Test_Spellbook001 · v2.1.0 · Madlib_Maker2 v1.0.0<br>This page prepares the brief; your AI creates the worksheet. Your entries stay on this page until you copy and share them. Reloading clears your entries.</div>
+<noscript><p>Turn on JavaScript to prepare a lobspell with your chosen settings.</p></noscript>
+</main>
+<script id="spell-data" type="application/json">{"inductionUrl":"https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/lobspell-v1.txt","bookUrl":"https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/nates-test/v2.1.0.txt","defaults":{"target_words":200,"blank_count":12,"audience":"Family-friendly","output":"pdf_preferred","border":"simple","paper":"letter","collection_title":"","story_number":1,"extra_notes":""}}</script>
+<script>
+"use strict";
+const data = JSON.parse(document.getElementById("spell-data").textContent);
+const form = document.getElementById("settings");
+const status = document.getElementById("status");
+const field = id => document.getElementById(id);
+function settings() {
+  return {
+    subject: field("subject").value.trim(),
+    target_words: Number(field("target-words").value),
+    blank_count: Number(field("blank-count").value),
+    audience: field("audience").value.trim() || "Family-friendly",
+    output: field("output").value,
+    border: field("border").value,
+    paper: field("paper").value,
+    collection_title: field("collection").value.trim(),
+    story_number: Number(field("story-number").value),
+    extra_notes: field("notes").value.trim()
+  };
+}
+function promptText() {
+  const values = settings();
+  const params = {};
+  for (const [key, value] of Object.entries(values)) {
+    if (key === "subject" || value !== data.defaults[key]) params[key] = value;
+  }
+  return "Use induction " + data.inductionUrl + " to cast:\nLOB " +
+    JSON.stringify({spell:"Madlib_Maker2", book:data.bookUrl, params});
+}
+function refresh() {
+  field("invocation").value = promptText();
+  field("manual").hidden = true;
+  status.textContent = "";
+}
+function validate() {
+  field("subject").setCustomValidity(field("subject").value.trim() ? "" : "Enter a subject, or type Surprise me.");
+  for (const id of ["target-words", "blank-count", "story-number"]) {
+    const value = Number(field(id).value);
+    field(id).setCustomValidity(Number.isSafeInteger(value) && value > 0 ? "" : "Enter a positive whole number.");
+  }
+  if (!form.reportValidity()) return false;
+  if (settings().blank_count > settings().target_words) {
+    field("blank-count").setCustomValidity("Use fewer blanks than the target word count, or increase the story length.");
+    field("blank-count").reportValidity();
+    return false;
+  }
+  return true;
+}
+async function copySpell() {
+  if (!validate()) return;
+  const text = promptText();
+  field("manual").hidden = true;
+  status.classList.remove("error");
+  try {
+    if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
+    await navigator.clipboard.writeText(text);
+    status.textContent = "Lobspell copied. Paste into an AI chat with web access and send.";
+  } catch {
+    const target = field("manual-text");
+    target.value = text;
+    field("manual").hidden = false;
+    target.focus();
+    target.select();
+    status.classList.add("error");
+    status.textContent = "Automatic copying is unavailable. Copy the selected text below.";
+  }
+  status.scrollIntoView({block:"nearest", behavior:"smooth"});
+}
+form.addEventListener("submit", event => {event.preventDefault(); copySpell();});
+form.addEventListener("input", () => {
+  for (const id of ["subject", "target-words", "blank-count", "story-number"]) field(id).setCustomValidity("");
+  refresh();
+});
+refresh();
+</script>
+<script>
+document.getElementById("all-spells").addEventListener("click", function(event) {
+  if (window.parent !== window && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
+    event.preventDefault();
+    window.parent.postMessage({type:"gpteamup:spell-navigation", page:"nates-spellbook"}, "*");
+  }
+});
+</script>
+</body></html>
