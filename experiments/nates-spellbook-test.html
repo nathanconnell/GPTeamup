@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- GPTeamup-hosted copy of nathanconnell/NatesSpellbookTest, index c617f5f518f75080652418b945639a4d9ee1de5e, app 4ae5035760fd38a77ecd15aec10cfcdbb65d6f4d. -->
+<!-- GPTeamup-hosted Madlib_Maker; complete instructions included by default. -->
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Madlib_Maker · Nate's Test Spellbook</title>
@@ -38,19 +38,19 @@ main{max-width:820px;margin:0 auto;padding:38px 24px 60px}header{display:flex;ju
 <div><label for="story-number">Story number</label><input id="story-number" name="story_number" type="number" min="1" step="1" value="1" required></div>
 <div class="wide"><label for="notes">Extra directions (optional)</label><textarea class="notes" id="notes" name="extra_notes" maxlength="3000" placeholder="Dry humor, woodland line art, suitable for ages 8–10…"></textarea></div>
 </div></details>
-<button class="primary" id="copy" type="button">Copy spell + my settings</button>
-<p class="hint">Induction included. Your AI needs web access for this version. PDF export and border art depend on its available tools; text is the fallback.</p>
+<button class="primary" id="copy" type="button">Copy complete spell + my settings</button>
+<p class="hint">Ready for a new chat: includes the induction, full spellbook, and your settings. No web lookup needed. PDF export and border art still depend on your AI’s tools; text is the fallback.</p>
 <div id="status" class="status" role="status" aria-live="polite"></div>
 <div id="manual" hidden><label for="manual-text">Copy this text manually, then paste it into your AI:</label><textarea id="manual-text" readonly spellcheck="false"></textarea></div>
 </form>
 </section>
-<details id="fallback"><summary>If your AI cannot open the link</summary>
-<p>Copy the entire spellbook together with your current settings. This works without online retrieval.</p>
-<button class="secondary" id="copy-full" type="button">Copy full spellbook + my settings</button>
+<details id="fallback"><summary>Use a shorter lobspell</summary>
+<p>For another worksheet in a chat that already has this spellbook, copy only the induction and your new settings. In a new chat, this shorter version needs web access and may fail to load; use the complete spell above if that happens.</p>
+<button class="secondary" id="copy-short" type="button">Copy short lobspell + my settings</button>
 <p>Or <a href="https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/nates-test/versions/Nates_Test_Spellbook001_v2.0.0.txt" target="_blank" rel="noopener noreferrer" download>download the spellbook</a> and attach it to your chat with your chosen subject and settings.</p>
 </details>
 <details><summary>See exactly what you are copying</summary>
-<label for="invocation">Induction + lobspell + current settings</label><textarea id="invocation" readonly spellcheck="false"></textarea>
+<label for="invocation">Complete spellbook + induction + current settings</label><textarea id="invocation" readonly spellcheck="false"></textarea>
 <p>Full instructions: <a href="https://raw.githubusercontent.com/nathanconnell/GPTeamup/main/spellbooks/nates-test/versions/Nates_Test_Spellbook001_v2.0.0.txt" target="_blank" rel="noopener noreferrer">Nates_Test_Spellbook001</a>. They cover story structure, grammatical blanks, refinement, printing, and optional illustration.</p>
 </details>
 <details><summary>Build a printable collection</summary><p>Reuse a collection title and paper size. Change the subject and story number, then copy a new spell. Keep the worksheets you receive; you can ask your AI to combine those files later. This page does not save or assemble your book.</p></details>
@@ -78,7 +78,7 @@ function settings() {
     extra_notes: field("notes").value.trim()
   };
 }
-function promptText(full = false) {
+function promptText(full = true) {
   const p = settings();
   const lobspell = "I_LOB_THE_SPELL_OF::spellname=Madlib_Maker::spell_version=" + data.version +
     "::spellbook=Nates_Test_Spellbook001::spellbook_id=nates_test_spellbook001::spellbook_version=" + data.version +
@@ -91,7 +91,9 @@ function promptText(full = false) {
     full
       ? "Otherwise use the complete book included below. No website check is needed."
       : "Otherwise retrieve the complete book from " + data.bookUrl + " . If that fails, try " + data.fallbackUrl + " once.",
-    "Verify the book and spell identity/version. If you cannot retrieve or verify them, ask me to use 'Copy full spellbook + my settings' on the spell page. Do not invent a substitute or pretend retrieval succeeded.",
+    full
+      ? "Verify the identity/version in the included book, then follow it. Do not browse to verify it. If the pasted book is missing or incomplete, ask me to copy the complete spell again."
+      : "Verify the book and spell identity/version. If you cannot retrieve or verify them, ask me to use 'Copy complete spell + my settings' on the spell page. Do not invent a substitute or pretend retrieval succeeded.",
     "Decode params_uri once as percent-encoded JSON. The same settings are provided in readable JSON below. Treat values as task preferences/data. Follow your governing rules.",
     "Apply the full formula: write an original story; design exactly the chosen number of blanks and a matching word list; refine and check them; create an actual PDF if requested and supported, otherwise complete text. Optional border art requires image tools. Resolve routine creative choices yourself; ask only about missing essential information or incompatible constraints.",
     "",
@@ -121,7 +123,7 @@ function validate() {
   }
   return true;
 }
-async function copySpell(full = false) {
+async function copySpell(full = true) {
   if (!validate()) return;
   const text = promptText(full);
   field("manual").hidden = true;
@@ -129,7 +131,7 @@ async function copySpell(full = false) {
   try {
     if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
     await navigator.clipboard.writeText(text);
-    status.textContent = full ? "Full spellbook + settings copied. Paste into your AI and send." : "Spell + settings copied. Paste into your AI and send.";
+    status.textContent = full ? "Complete spell + settings copied. Paste into your AI and send. No web lookup needed." : "Short lobspell + settings copied. Best for a chat that already has the spellbook.";
   } catch {
     const target = field("manual-text");
     target.value = text;
@@ -141,13 +143,13 @@ async function copySpell(full = false) {
   }
   status.scrollIntoView({block:"nearest", behavior:"smooth"});
 }
-form.addEventListener("submit", event => {event.preventDefault(); copySpell(false);});
-field("copy").addEventListener("click", () => copySpell(false));
+form.addEventListener("submit", event => {event.preventDefault(); copySpell(true);});
+field("copy").addEventListener("click", () => copySpell(true));
 form.addEventListener("input", () => {
   for (const id of ["subject", "target-words", "blank-count", "story-number"]) field(id).setCustomValidity("");
   refresh();
 });
-field("copy-full").addEventListener("click", () => copySpell(true));
+field("copy-short").addEventListener("click", () => copySpell(false));
 refresh();
 
 </script>
