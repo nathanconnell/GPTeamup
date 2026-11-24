@@ -69,3 +69,7 @@ Values use encodeURIComponent-style UTF-8 percent encoding and decode exactly on
 Use **Copy full handoff** for the induction, current spellbook, and filled request in one paste. In the same prepared conversation, send compact lobspells afterward. Send a new full handoff after revising or switching books. The book ID is an identity/version check, not a cryptographic authenticity guarantee; arties still follow their own platform instructions and tool permissions. Clipboard failures open selected text for manual copying, and a separate view/select control is always available.
 
 Validation covered all four starter spells, encoding roundtrips, invalid requests, import validation, working-copy identity, and workspace roundtrips. Browser checks covered input authoring and reordering, an imported spell’s live form, nested sandbox editing, full handoffs, browser saving, standalone JSON download, and workspace backup/restore in the embedded layout.
+
+## Tutorials
+
+`tutorials/index.html` is the tutorials hub, opened by the Tutorials card on the main index. Its first lesson, Tiny Machines, explains surface micromachining, sacrificial release, photoresist, planarization, and process constraints. It uses selected icons from an embedded generated sprite sheet, readable HTML text, and expandable knowledge checks. The lesson and hub run in the existing Nodelus sandbox without relative asset paths or storage. Add future tutorial content under `tutorials/` and keep the srcdoc constraints above in mind.
